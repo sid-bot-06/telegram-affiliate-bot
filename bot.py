@@ -9,11 +9,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Hey! I'm your affiliate bot. Send /help to see what I can do.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "Commands:\n"
-        "/start - Start the bot\n"
-        "/help - List commands"
-    )
+    await update.message.reply_text("Commands:\n/start - Start the bot\n/help - List commands")
 
 async def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
@@ -21,13 +17,11 @@ async def main():
     app.add_handler(CommandHandler("help", help_command))
 
     print("Bot is running...")
-    await app.initialize()
-    await app.start()
-    await app.updater.start_polling()
-    await app.updater.idle()
+    await app.run_polling()
 
 if __name__ == "__main__":
     asyncio.run(main())
+
 
 
 
