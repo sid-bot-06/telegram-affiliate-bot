@@ -3,30 +3,26 @@ import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")  # Make sure this is set in Render environment variables
+# Get your bot token from Render environment variable
+BOT_TOKEN = os.getenv("BOT_TOKEN")  # Make sure you set this in Render
 
-# Start command
+# /start command handler
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Hey! The bot is alive now! 🚀")
+    await update.message.reply_text("Hello! I'm your affiliate bot, ready to roll!")
 
-# Help command
+# /help command handler
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("This is a simple affiliate bot. Use /start to begin.")
-
-# Test command
-async def test(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("The bot is working perfectly!")
+    await update.message.reply_text("Available commands:\n/start - Start the bot\n/help - Show this help message")
 
 async def main():
-    # Create the bot application
+    # Build the bot application
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
-    # Add handlers
+    # Add command handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
-    app.add_handler(CommandHandler("test", test))
 
-    # Run polling (keeps the bot alive)
+    # Start polling
     await app.run_polling()
 
 if __name__ == "__main__":
